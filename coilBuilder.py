@@ -5,16 +5,16 @@ import magpylib as magpy
 avv = int(input("Numero di avvolgimenti:"))
 l1 = int(input("Lato 1:"))
 l2 = int(input("Lato 2:"))
-h = int(input("Altezza bobina:"))
+h = float(input("Altezza bobina:"))
 i = float(input("Corrente:"))
-
+sensor = magpy.Sensor()
 coil = magpy.Collection()
 vertices=(
             (0,0,0),
             (l1,0,0),
             (l1,l2,0),
             (0,l2,0),
-            (0,0,avv/h)
+            (0,0,h/avv)
         )
 
 for z in np.linspace(0, h, avv):
@@ -24,8 +24,8 @@ for z in np.linspace(0, h, avv):
         position = (0,0,z)
     )
     coil.add(winding)
-coil.show()
-#B = sensor.getB(coil, sumup=True)
+magpy.show(sensor, coil, backend='plotly')
+#B = sensor.getB(coil)
 
 #plt.plot(B, label=['Bx', 'By', 'Bz'])
 #plt.legend()
